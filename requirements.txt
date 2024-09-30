@@ -1,4 +1,4 @@
-NumPy version: 1.26.4
-Pandas version: 2.1.4
-Matplotlib version: 3.7.1
-Seaborn version: 0.13.1
+numpy==1.26.4
+Pandas==2.1.4
+Matplotlib==3.7.1
+Seaborn==0.13.1
