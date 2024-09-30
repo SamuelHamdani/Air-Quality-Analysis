@@ -50,12 +50,12 @@ st.write ("""
 tab1, tab2, tab3 = st.tabs(["Question 1", "Question 2", "Question 3"])
 with tab1:
     st.header("How did the level of air pollution develop in each city from 2013-2017?")
-    st.image(".\image\Visualisasi Air_Quality 1.1.png")
+    st.image("./image/Visualisasi Air_Quality 1.1.png")
     st.write("""
              #### Average PM2.5 per Year and Station\n
              The visualization shows that PM2.5 levels in Beijing have generally decreased from 2013 to 2017, but there are significant variations among different stations. Some stations consistently have higher levels than others, and there may be seasonal fluctuations in PM2.5 levels for some stations.
     """)
-    st.image(".\image\Visualisasi Air_Quality 1.2.png")
+    st.image("./image/Visualisasi Air_Quality 1.2.png")
     st.write("""
              #### Heatmap of Average PM2.5 per Year and Station\n
              The heatmap shows that PM2.5 levels in Beijing have generally decreased from 2013 to 2017, but there are significant variations among different stations. Some stations consistently have higher levels than others, and there may be seasonal fluctuations in PM2.5 levels for some stations. Overall, the heatmap provides a visual representation of the spatial and temporal variations in PM2.5 levels across the different stations in Beijing.
@@ -63,7 +63,7 @@ with tab1:
  
 with tab2:
     st.header("How did pollution levels develop from 2013 - 2017?")
-    st.image(".\image\Visualisasi Air_Quality 2.png")
+    st.image("./image/Visualisasi Air_Quality 2.png")
     st.write("""
             #### Average PM2.5 per Year\n
             The line graph shows that the average PM2.5 levels in Beijing have generally decreased from 2013 to 2017. There was a sharp decline between 2014 and 2016, followed by a slight increase in 2017. Overall, the trend indicates a positive improvement in air quality during the period.
@@ -71,12 +71,12 @@ with tab2:
  
 with tab3:
     st.header("Which cities have the highest and lowest levels of air pollution? What are the scores?")
-    st.image(".\image\Visualisasi Air_Quality 3.1.png")
+    st.image("./image/Visualisasi Air_Quality 3.1.png")
     st.write("""
             #### Station Pollution Level Ranking Based on Average PM2.5\n
             The bar chart ranks the stations in Beijing based on their average PM2.5 levels. Aotizhongxin has the highest average PM2.5 level, while Dingling has the lowest. Several other stations, including Gucheng, Dongsi, Wanshouxigong, Wangliu, Guanyuan, Tiantan, Nongzhanguan, Shunyi, Changping, and Huairou, have relatively high average PM2.5 levels. In contrast, Wanliu has a relatively low average PM2.5 level. Overall, the bar chart clearly shows the differences in PM2.5 levels among the different stations in Beijing.
     """)
-    st.image(".\image\Visualisasi Air_Quality 3.2.png")
+    st.image("./image/Visualisasi Air_Quality 3.2.png")
     st.write("""
             #### Heatmap Average PM2.5 per Year In Different Stations\n
             The heatmap visually represents the average PM2.5 levels per year for different stations in Beijing from 2013 to 2017. Darker colors indicate lower levels, while lighter colors represent higher levels. The heatmap clearly shows the spatial and temporal variations in PM2.5 levels across the different stations, allowing for easy identification of trends and patterns.
