@@ -4,6 +4,52 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+aotizhongxin_df = pd.read_csv("./Data/PRSA_Data_Aotizhongxin_20130301-20170228.csv")
+changping_df = pd.read_csv("./Data/PRSA_Data_Changping_20130301-20170228.csv")
+dingling_df = pd.read_csv("./Data/PRSA_Data_Dingling_20130301-20170228.csv")
+dongsi_df = pd.read_csv("./Data/PRSA_Data_Dongsi_20130301-20170228.csv")
+guanyuan_df = pd.read_csv("./Data/PRSA_Data_Guanyuan_20130301-20170228.csv")
+gucheng_df = pd.read_csv("./Data/PRSA_Data_Gucheng_20130301-20170228.csv")
+huairou_df = pd.read_csv("./Data/PRSA_Data_Huairou_20130301-20170228.csv")
+nongzhanguan_df = pd.read_csv("./Data/PRSA_Data_Nongzhanguan_20130301-20170228.csv")
+shunyi_df = pd.read_csv("./Data/PRSA_Data_Shunyi_20130301-20170228.csv")
+tiantan_df = pd.read_csv("./Data/PRSA_Data_Tiantan_20130301-20170228.csv")
+wanliu_df = pd.read_csv("./Data/PRSA_Data_Wanliu_20130301-20170228.csv")
+wanshouxigong_df = pd.read_csv("./Data/PRSA_Data_Wanshouxigong_20130301-20170228.csv")
+
+aotizhongxin_df['wd'].fillna(value="Cannot Be Determined", inplace=True)
+changping_df['wd'].fillna(value="Cannot Be Determined", inplace=True)
+dingling_df['wd'].fillna(value="Cannot Be Determined", inplace=True)
+dongsi_df['wd'].fillna(value="Cannot Be Determined", inplace=True)
+guanyuan_df['wd'].fillna(value="Cannot Be Determined", inplace=True)
+gucheng_df['wd'].fillna(value="Cannot Be Determined", inplace=True)
+huairou_df['wd'].fillna(value="Cannot Be Determined", inplace=True)
+nongzhanguan_df['wd'].fillna(value="Cannot Be Determined", inplace=True)
+shunyi_df['wd'].fillna(value="Cannot Be Determined", inplace=True)
+tiantan_df['wd'].fillna(value="Cannot Be Determined", inplace=True)
+wanliu_df['wd'].fillna(value="Cannot Be Determined", inplace=True)
+wanshouxigong_df['wd'].fillna(value="Cannot Be Determined", inplace=True)
+
+table = [aotizhongxin_df, changping_df, dingling_df, dongsi_df, guanyuan_df,
+       gucheng_df, huairou_df, nongzhanguan_df, shunyi_df, tiantan_df,
+       wanliu_df, wanshouxigong_df]
+
+columns = ['PM2.5', 'PM10', 'SO2', 'NO2', 'CO', 'O3', 'TEMP', 'PRES', 'DEWP', 'RAIN', 'WSPM']
+
+for df in table:
+  for col in columns:
+    df[col].interpolate(method='linear', inplace=True)
+
+china_air_df = pd.concat([aotizhongxin_df, changping_df, dingling_df, dongsi_df, guanyuan_df, gucheng_df, huairou_df, nongzhanguan_df, shunyi_df, tiantan_df, wanliu_df, wanshouxigong_df], ignore_index=True)
+
+china_air_df.dropna(inplace=True)
+
+china_air_df.index = china_air_df['No']
+
+china_air_df.drop('No', axis=1, inplace=True)
+
+year_station_df = china_air_df.groupby(['year', 'station'])[['PM2.5', 'PM10', 'SO2', 'NO2', 'CO', 'O3', 'TEMP', 'PRES', 'DEWP', 'RAIN', 'WSPM']].mean().round(2)
+
 st.title('Proyek Analisis Data : Air Quality Dataset \n Oleh : Samuel Christian Hamdani')
 
 col1, col2 = st.columns(2)
@@ -54,12 +100,25 @@ st.write ("""
 tab1, tab2, tab3 = st.tabs(["Question 1", "Question 2", "Question 3"])
 with tab1:
     st.header("How did the level of air pollution develop in each city from 2013-2017?")
-    st.image("./image/Visualisasi Air_Quality 1.1.png")
+    avgpm25_year_station = year_station_df.groupby(['year', 'station'])['PM2.5'].mean().unstack()
+    vis11, ax = plt.subplots(figsize=(12, 6))
+    avgpm25_year_station.plot(kind='line', ax=ax)
+    ax.set_title('Rata-rata PM2.5 per Tahun dan Stasiun')
+    ax.set_xlabel('Tahun')
+    ax.set_ylabel('Rata-rata PM2.5')
+    ax.legend(title='Stasiun', loc='upper left')
+    ax.grid(True)
+    st.pyplot(vis11)
     st.write("""
              #### Average PM2.5 per Year and Station\n
              The visualization shows that PM2.5 levels in Beijing have generally decreased from 2013 to 2017, but there are significant variations among different stations. Some stations consistently have higher levels than others, and there may be seasonal fluctuations in PM2.5 levels for some stations.
     """)
-    st.image("./image/Visualisasi Air_Quality 1.2.png")
+    vis12, ax2 = plt.subplots(figsize=(12, 6))
+    sns.heatmap(avgpm25_year_station, annot=True, cmap='viridis', fmt=".2f", ax=ax2)
+    ax2.set_title('Heatmap Rata-rata PM2.5 per Tahun dan Stasiun')
+    ax2.set_xlabel('Stasiun')
+    ax2.set_ylabel('Tahun')
+    st.pyplot(vis12)
     st.write("""
              #### Heatmap of Average PM2.5 per Year and Station\n
              The heatmap shows that PM2.5 levels in Beijing have generally decreased from 2013 to 2017, but there are significant variations among different stations. Some stations consistently have higher levels than others, and there may be seasonal fluctuations in PM2.5 levels for some stations. Overall, the heatmap provides a visual representation of the spatial and temporal variations in PM2.5 levels across the different stations in Beijing.
@@ -67,7 +126,14 @@ with tab1:
  
 with tab2:
     st.header("How did pollution levels develop from 2013 - 2017?")
-    st.image("./image/Visualisasi Air_Quality 2.png")
+    avgpm25_year_station = year_station_df.groupby('year')['PM2.5'].mean()
+    vis2, ax = plt.subplots(figsize=(12, 6))
+    avgpm25_year_station.plot(kind='line', ax=ax)
+    ax.set_title('Rata-rata PM2.5 per Tahun')
+    ax.set_xlabel('Tahun')
+    ax.set_ylabel('Rata-rata PM2.5')
+    ax.grid(True)
+    st.pyplot(vis2)
     st.write("""
             #### Average PM2.5 per Year\n
             The line graph shows that the average PM2.5 levels in Beijing have generally decreased from 2013 to 2017. There was a sharp decline between 2014 and 2016, followed by a slight increase in 2017. Overall, the trend indicates a positive improvement in air quality during the period.
@@ -75,12 +141,26 @@ with tab2:
  
 with tab3:
     st.header("Which cities have the highest and lowest levels of air pollution? What are the scores?")
-    st.image("./image/Visualisasi Air_Quality 3.1.png")
+    avgpm25_by_station = year_station_df.groupby('station')['PM2.5'].mean().sort_values(ascending=False)
+    vis31, ax = plt.subplots(figsize=(12, 6))
+    ax.bar(avgpm25_by_station.index, avgpm25_by_station.values)
+    ax.set_title('Urutan Tingkat Polusi Stasiun Berdasarkan Rata-rata PM2.5')
+    ax.set_xlabel('Station')
+    ax.set_ylabel('Rata-rata PM2.5')
+    ax.tick_params(axis='x', rotation=45)
+    labels = ax.get_xticklabels()
+    plt.setp(labels, ha="right")
+    st.pyplot(vis31)
     st.write("""
             #### Station Pollution Level Ranking Based on Average PM2.5\n
             The bar chart ranks the stations in Beijing based on their average PM2.5 levels. Aotizhongxin has the highest average PM2.5 level, while Dingling has the lowest. Several other stations, including Gucheng, Dongsi, Wanshouxigong, Wangliu, Guanyuan, Tiantan, Nongzhanguan, Shunyi, Changping, and Huairou, have relatively high average PM2.5 levels. In contrast, Wanliu has a relatively low average PM2.5 level. Overall, the bar chart clearly shows the differences in PM2.5 levels among the different stations in Beijing.
     """)
-    st.image("./image/Visualisasi Air_Quality 3.2.png")
+    vis32, ax = plt.subplots(figsize=(12, 6))
+    sns.heatmap(year_station_df.groupby('station')['PM2.5'].mean().to_frame(), annot=True, cmap='BuPu', fmt=".2f", ax=ax)
+    ax.set_title('Heatmap Rata-rata PM2.5 per Tahun')
+    ax.set_xlabel('Stasiun')
+    ax.set_ylabel('Tahun')
+    st.pyplot(vis32)
     st.write("""
             #### Heatmap Average PM2.5 per Year In Different Stations\n
             The heatmap visually represents the average PM2.5 levels per year for different stations in Beijing from 2013 to 2017. Darker colors indicate lower levels, while lighter colors represent higher levels. The heatmap clearly shows the spatial and temporal variations in PM2.5 levels across the different stations, allowing for easy identification of trends and patterns.
