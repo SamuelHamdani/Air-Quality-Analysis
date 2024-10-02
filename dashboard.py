@@ -168,9 +168,16 @@ with tab3:
 
 st.write("""
         # Conclusion
-         1. In the results of question 1, it can be seen that the PM2.5 levels at several stations fluctuate from year to year. Several stations show a significant increase or decrease in PM2.5 levels in certain years and have an increase until 2017.
-         2. In the visualization results of question 2, it can be seen that in 2014 the pollution level in the Beijing area increased, then decreased drastically until 2016. Then in mid-2016, there was a significant increase until 2017.
-         3. In the third visualization results, it is concluded that the city with the highest pollution level from 2013-2017 is Dongsi City with a value of 88.86, and the city with the lowest air pollution level is Dingling City with a value of 67.04
+        Based on the analysis of air quality data in Beijing from 2013-2017, it can be concluded that:
+        1. Fluctuating Air Pollution Levels: In general, air pollution levels in Beijing, especially PM2.5 concentrations, fluctuate from year to year and between cities. There are some cities that tend to have higher pollution levels than others.
+
+        2. Pollution Increasing and Decreasing Trends: Several cities show significant trends of increasing or decreasing PM2.5 concentrations during the observation period. This indicates that there are factors that affect air quality in different cities differently.
+
+       3.  Differences in Air Quality Between Cities: There are significant differences in air pollution levels between cities. Some cities consistently have higher pollution levels than others. This could be due to various factors such as population density, industrial activity, too many motorized vehicle users, or indiscriminate waste disposal.
+
+        4. Seasonal Influence: There is a possibility of seasonal influences on air quality in Beijing, although this has not been explicitly identified in this analysis. It is important to further analyze the data by paying attention to seasonal patterns to gain more comprehensive insights.
+
+        5. Solutions to overcome pollution: From the analysis results, there needs to be a comprehensive air pollution control effort, including reducing emissions from motor vehicles, industry, and other sources.
 """)
 
 st.write("Follow me on linkedin : www.linkedin.com/in/samuel-christian-hamdani")
